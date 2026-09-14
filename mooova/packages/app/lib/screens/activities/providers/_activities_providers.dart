@@ -61,4 +61,15 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
     if (state.isLoading || state.isRefreshing) return;
     ref.invalidateSelf();
   }
+
+  Future<void> onOwnerIncreasePriceClicked(String orderId) async {
+    final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
+    final item = state.requireValue
+        .whereType<ActivitiesOrderItem$Owner$Created>()
+        .firstWhere((e) => e.order.orderId == orderId);
+    final newPrice = item.order.finalPrice + item.priceIncreaseAmount;
+
+    await orderActivitiesRepository.increaseOrderPrice(orderId: orderId, newPrice: newPrice);
+    ref.invalidateSelf();
+  }
 }
