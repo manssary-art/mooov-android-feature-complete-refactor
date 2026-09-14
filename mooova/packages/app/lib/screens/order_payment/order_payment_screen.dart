@@ -114,6 +114,7 @@ class _OrderPaymentScreen extends HookConsumerWidget {
                 availableMethods: useUpdateState(methods),
                 discount: useUpdateState(cardMethod.intent.discountAmount),
                 isApplyingPromoCode: useUpdateState(initial.isReloading),
+                onPaymentMethodClicked: initialNotifier.onPaymentMethodClicked,
               );
             },
           ),

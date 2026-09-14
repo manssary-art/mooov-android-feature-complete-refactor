@@ -9,6 +9,7 @@ class OrderPaymentScreenContentLoadedSelectMethod extends HookWidget {
   final ValueListenable<bool> isApplyingPromoCode;
   final ValueListenable<List<AvailablePaymentMethod>> availableMethods;
   final void Function(String) onPromoCodeChanged;
+  final void Function(AvailablePaymentMethod) onPaymentMethodClicked;
 
   const OrderPaymentScreenContentLoadedSelectMethod({
     super.key,
@@ -20,6 +21,7 @@ class OrderPaymentScreenContentLoadedSelectMethod extends HookWidget {
     required this.availableMethods,
     required this.onNavBackClicked,
     required this.onPromoCodeChanged,
+    required this.onPaymentMethodClicked,
   });
 
   @override
@@ -44,7 +46,7 @@ class OrderPaymentScreenContentLoadedSelectMethod extends HookWidget {
                 const SizedBox(height: 16),
                 for (final method in availableMethods) ...[
                   OrderPaymentAvailableMethodListItem(
-                    onTap: () {},
+                    onTap: () => onPaymentMethodClicked(method),
                     text: switch (method) {
                       AvailablePaymentMethod$Klarna() => 'Klarna',
                       AvailablePaymentMethod$Card() => LocaleKeys.CardPayment.tr(),
