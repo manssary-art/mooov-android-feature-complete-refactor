@@ -216,6 +216,7 @@ class _OrderPlacementScreen extends HookConsumerWidget {
                   onContactPhoneContentChanged: addressesNotifier.onContactPhoneContentChanged,
                   onStreetAddressClicked: addressesNotifier.onStreetAddressClicked,
                   onAddDeliveryAddressClicked: addressesNotifier.onAddDeliveryAddressClicked,
+                  onDeleteAddressClicked: addressesNotifier.onDeleteAddressClicked,
                   onPickUpTimesChanged: pickUpTimesNotifier.onValueChanged,
                   onContinueClicked: stepsNotifier.onContinueClicked,
                 );
