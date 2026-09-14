@@ -144,4 +144,10 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
 
     ref.invalidateSelf();
   }
+
+  Future<void> onWorkerCancelAndRefundClicked(String orderId) async {
+    final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
+    await orderActivitiesRepository.cancelOrder(orderId: orderId);
+    ref.invalidateSelf();
+  }
 }
