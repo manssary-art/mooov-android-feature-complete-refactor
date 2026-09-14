@@ -105,5 +105,23 @@ class OrderPaymentNotifier extends AsyncNotifier<OrderPaymentModel> {
     }
   }
 
-  void onSubmitCardPaymentClicked() {}
+  void onSubmitCardPaymentClicked() async {
+    try {
+      _isWorkingNotifier().state = true;
+      final cardMethod = state.requireValue.methods.whereType<AvailablePaymentMethod$Card>().first;
+      final monthStr = ref.read(cardExpirationMonthProvider) ?? '';
+      final yearStr = ref.read(cardExpirationYearProvider) ?? '';
+      final result = await _placePaymentRepository().placeCardPayment(
+        intent: cardMethod.intent,
+        number: ref.read(cardNumberProvider) ?? '',
+        expirationMonth: int.parse(monthStr),
+        expirationYear: int.parse(yearStr) + 2000,
+        cvc: ref.read(cardCVCProvider) ?? '',
+        save: ref.read(saveCardProvider),
+      );
+      result.onValue((value) => _sideEffect().add(const OrderPaymentSideEffect$NavBack(true)));
+    } finally {
+      _isWorkingNotifier().state = false;
+    }
+  }
 }

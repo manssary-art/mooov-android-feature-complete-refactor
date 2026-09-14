@@ -55,6 +55,7 @@ class _OrderPaymentScreen extends HookConsumerWidget {
             onNavBack();
             break;
           case OrderPaymentSideEffect$NavToCardPayment():
+            ref.read(stepProvider.notifier).state = OrderPaymentStep.cardInfo;
             break;
         }
       }).cancel,
@@ -128,7 +129,7 @@ class _OrderPaymentScreen extends HookConsumerWidget {
                 expYear: useUpdateState(cardExpirationYear),
                 onNavBackClicked: initialNotifier.onNavBackClicked,
                 isSaveCardEnabled: useUpdateState(isSaveCard),
-                onSubmitClicked: () {},
+                onSubmitClicked: initialNotifier.onSubmitCardPaymentClicked,
                 onSaveCardChanged: isSaveCardNotifier.onValueChanged,
                 onCardNumberChanged: cardNumberNotifier.onValueChanged,
                 onCvcNumberChanged: cardCVCNotifier.onValueChanged,
