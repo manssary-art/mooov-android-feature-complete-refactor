@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:network_api/apis/order_activities_api.dart';
 import 'package:network_api/apis/order_api.dart';
 import 'package:network_api/apis/order_management_api.dart';
+import 'package:network_api/dtos/order_set_delivered_dto.dart';
+import 'package:network_api/dtos/order_set_picked_up_dto.dart';
 import 'package:network_api/dtos/order_update_dto.dart';
 import 'package:network_api/ext/http_response_ext.dart';
 
@@ -96,6 +98,36 @@ class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
   Future<Result<void>> confirmDelivery({required String orderId}) => resultOf(() async {
         return orderManagementApi
             .setOrderCompleted(orderId: orderId)
+            .asHttpResponseResult()
+            .onValue((e) => orderRepository.getOrderById(orderId: orderId));
+      });
+
+  @override
+  Future<Result<void>> setOrderPickedUp({
+    required String orderId,
+    required List<String> pickupImages,
+  }) =>
+      resultOf(() async {
+        return orderManagementApi
+            .setOrderPickedUp(
+              orderId: orderId,
+              body: OrderSetPickedUpDto(orderId: orderId, pickupImages: pickupImages),
+            )
+            .asHttpResponseResult()
+            .onValue((e) => orderRepository.getOrderById(orderId: orderId));
+      });
+
+  @override
+  Future<Result<void>> setOrderDelivered({
+    required String orderId,
+    required List<String> deliveredImages,
+  }) =>
+      resultOf(() async {
+        return orderManagementApi
+            .setOrderDelivered(
+              orderId: orderId,
+              body: OrderSetDeliveredDto(orderId: orderId, deliveredImages: deliveredImages),
+            )
             .asHttpResponseResult()
             .onValue((e) => orderRepository.getOrderById(orderId: orderId));
       });

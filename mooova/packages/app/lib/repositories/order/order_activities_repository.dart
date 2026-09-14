@@ -10,4 +10,14 @@ abstract interface class OrderActivitiesRepository {
   Future<Result<void>> increaseOrderPrice({required String orderId, required double newPrice});
 
   Future<Result<void>> confirmDelivery({required String orderId});
+
+  Future<Result<void>> setOrderPickedUp({
+    required String orderId,
+    required List<String> pickupImages,
+  });
+
+  Future<Result<void>> setOrderDelivered({
+    required String orderId,
+    required List<String> deliveredImages,
+  });
 }
