@@ -281,10 +281,17 @@ class WorkerApplicationFormScreenContentLoaded extends HookWidget {
   Widget buildZipCode(BuildContext context) {
     return WorkerApplicationFormInputContainer(
       title: LocaleKeys.PostalCode.tr(),
-      isValid: zipCode.isNotEmpty,
+      isValid: zipCode.isNotEmpty &&
+          postalCodePattern.isValidPostalCode(
+            country?.code.toString() ?? '',
+            zipCode,
+          ),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: WorkerApplicationFormInputField(
-        hint: LocaleKeys.PostalCode.tr(),
+        hint: postalCodePattern.getPostalCodeExample(
+              country?.code.toString() ?? '',
+            ) ??
+            LocaleKeys.PostalCode.tr(),
         textCapitalization: TextCapitalization.words,
         value: zipCode,
         onValueChanged: onZipCodeChanged,
