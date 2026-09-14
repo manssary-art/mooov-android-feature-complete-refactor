@@ -17,6 +17,7 @@ class OrderPlacementStepAddressContent extends HookWidget {
   final List<OrderAddressModel> addresses;
   final bool isSubmitEnabled;
   final void Function(int key, bool value) onHasElevatorToggled;
+  final void Function(int key, bool value) onAssemblyToggled;
   final void Function(int key, String value) onFloorContentChanged;
   final void Function(int key, String value) onDoorCodeContentChanged;
   final void Function(int key, String value) onContactPhoneContentChanged;
@@ -30,6 +31,7 @@ class OrderPlacementStepAddressContent extends HookWidget {
     required this.addresses,
     required this.isSubmitEnabled,
     required this.onHasElevatorToggled,
+    required this.onAssemblyToggled,
     required this.onFloorContentChanged,
     required this.onDoorCodeContentChanged,
     required this.onContactPhoneContentChanged,
@@ -63,6 +65,9 @@ class OrderPlacementStepAddressContent extends HookWidget {
                   floors: entry.value.floor ?? '',
                   contactPhone: entry.value.contactPhone ?? '',
                   doorCode: entry.value.doorEntryCode ?? '',
+                  country: entry.value.country,
+                  assembly: entry.value.assembly ?? false,
+                  onAssemblyToggled: (value) => onAssemblyToggled(entry.key, value),
                   onStreetAddressClicked: () => onStreetAddressClicked(entry.key),
                   onHasElevatorToggled: (value) => onHasElevatorToggled(entry.key, value),
                   onFloorContentChanged: (value) => onFloorContentChanged(entry.key, value),
