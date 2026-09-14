@@ -68,6 +68,7 @@ abstract class  LocaleKeys {
   static const TotalPrice = 'TotalPrice';
   static const OfferPrice = 'OfferPrice';
   static const AdminFee = 'AdminFee';
+  static const ServiceFee = 'ServiceFee';
   static const TotalFee = 'TotalFee';
   static const CheckBoxDes = 'CheckBoxDes';
   static const Submit = 'Submit';

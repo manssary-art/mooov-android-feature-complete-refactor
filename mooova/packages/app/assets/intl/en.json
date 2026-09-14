@@ -66,6 +66,7 @@
   "TotalPrice": "Total amount",
   "OfferPrice": "Offer {#1} {#2}",
   "AdminFee": "Small fee {#1} {#2}",
+  "ServiceFee": "Service fee {#1} {#2}",
   "TotalFee": "Total gross {#1} {#2}",
   "CheckBoxDes": "Yep, I hereby acknowledge that what is being collected matches the image and description, does not contain the toxic or harmful substance, and will be available at the time for collection or delivery.",
   "Submit": "Publish",
