@@ -14,6 +14,7 @@ class OrderAddressModel with EquatableMixin {
   final String? contactPhone;
   final GeoPointModel? geoPoint;
   final Country? country;
+  final bool? assembly;
 
   const OrderAddressModel({
     required this.streetAddress,
@@ -26,6 +27,7 @@ class OrderAddressModel with EquatableMixin {
     required this.contactPhone,
     required this.geoPoint,
     required this.country,
+    required this.assembly,
   });
 
   factory OrderAddressModel.empty() => const OrderAddressModel(
@@ -39,6 +41,7 @@ class OrderAddressModel with EquatableMixin {
         contactPhone: null,
         geoPoint: null,
         country: null,
+        assembly: null,
       );
 
   @override
@@ -53,6 +56,7 @@ class OrderAddressModel with EquatableMixin {
         contactPhone,
         geoPoint,
         country,
+        assembly,
       ];
 
   OrderAddressModel copyWith({
@@ -60,6 +64,7 @@ class OrderAddressModel with EquatableMixin {
     String? Function()? apartmentNumber,
     String? Function()? area,
     Country? Function()? country,
+    bool? Function()? assembly,
     String? Function()? city,
     String? Function()? floor,
     String? Function()? doorEntryCode,
@@ -79,6 +84,7 @@ class OrderAddressModel with EquatableMixin {
       contactPhone: contactPhone != null ? contactPhone() : this.contactPhone,
       geoPoint: geoPoint != null ? geoPoint() : this.geoPoint,
       country: country != null ? country() : this.country,
+      assembly: assembly != null ? assembly() : this.assembly,
     );
   }
 }
