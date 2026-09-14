@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../screens/app_update/app_update_screen.dart' deferred as lazy_app_update_screen;
 import '../../screens/order_payment/order_payment_screen.dart' deferred as lazy_order_payment_screen;
-import '../../screens/order_rating/order_rating_screen.dart' deferred as lazy_order_rating_screen;
 import '../../screens/wizard/wizard_screen.dart' deferred as lazy_wizard_screen;
 import 'router_observer.dart';
 import 'routes/activities/activities_route.dart';
@@ -15,6 +14,7 @@ import 'routes/home/home_route.dart';
 import 'routes/notification_settings/notification_settings_route.dart';
 import 'routes/order_details/order_details_route.dart';
 import 'routes/order_placement/order_placement_route.dart';
+import 'routes/order_rating/order_rating_route.dart';
 import 'routes/order_worker_selection/order_worker_selection_route.dart';
 import 'routes/payment/order_payment_route.dart';
 import 'routes/profile/profile_route.dart';
@@ -105,18 +105,8 @@ GoRouter _appRouter() => GoRouter(
         orderDetailsRoute(
           parentNavigatorKey: _rootNavigatorKey,
         ),
-        GoRoute(
-          path: '/order-rating',
+        orderRatingRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          pageBuilder: (context, state) => ThemedTransitionPage(
-            key: state.pageKey,
-            child: DeferredBuilder(
-              loadLibrary: lazy_order_rating_screen.loadLibrary,
-              builder: (context) {
-                return lazy_order_rating_screen.OrderRatingScreen();
-              },
-            ),
-          ),
         ),
         GoRoute(
           path: '/wizard',

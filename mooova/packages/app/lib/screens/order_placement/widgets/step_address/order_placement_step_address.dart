@@ -17,12 +17,14 @@ class OrderPlacementStepAddressContent extends HookWidget {
   final List<OrderAddressModel> addresses;
   final bool isSubmitEnabled;
   final void Function(int key, bool value) onHasElevatorToggled;
+  final void Function(int key, bool value) onAssemblyToggled;
   final void Function(int key, String value) onFloorContentChanged;
   final void Function(int key, String value) onDoorCodeContentChanged;
   final void Function(int key, String value) onContactPhoneContentChanged;
   final void Function(List<DateTime> value) onPickUpTimesChanged;
   final void Function(int key) onStreetAddressClicked;
   final void Function() onAddDeliveryAddressClicked;
+  final void Function(int key) onDeleteAddressClicked;
   final void Function() onContinueClicked;
 
   const OrderPlacementStepAddressContent({
@@ -30,11 +32,13 @@ class OrderPlacementStepAddressContent extends HookWidget {
     required this.addresses,
     required this.isSubmitEnabled,
     required this.onHasElevatorToggled,
+    required this.onAssemblyToggled,
     required this.onFloorContentChanged,
     required this.onDoorCodeContentChanged,
     required this.onContactPhoneContentChanged,
     required this.onStreetAddressClicked,
     required this.onAddDeliveryAddressClicked,
+    required this.onDeleteAddressClicked,
     required this.onContinueClicked,
     required this.onPickUpTimesChanged,
   });
@@ -63,6 +67,10 @@ class OrderPlacementStepAddressContent extends HookWidget {
                   floors: entry.value.floor ?? '',
                   contactPhone: entry.value.contactPhone ?? '',
                   doorCode: entry.value.doorEntryCode ?? '',
+                  country: entry.value.country,
+                  assembly: entry.value.assembly ?? false,
+                  onAssemblyToggled: (value) => onAssemblyToggled(entry.key, value),
+                  onDeleteClicked: entry.key == 1 ? null : () => onDeleteAddressClicked(entry.key),
                   onStreetAddressClicked: () => onStreetAddressClicked(entry.key),
                   onHasElevatorToggled: (value) => onHasElevatorToggled(entry.key, value),
                   onFloorContentChanged: (value) => onFloorContentChanged(entry.key, value),

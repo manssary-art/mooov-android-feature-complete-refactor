@@ -33,6 +33,13 @@ class OrderPlacementAddressesNotifier extends Notifier<List<OrderAddressModel>> 
     }).toList();
   }
 
+  void onAssemblyToggled(int key, bool value) async {
+    state = state.mapIndexed((i, e) {
+      if (i != key) return e;
+      return e.copyWith(assembly: () => value);
+    }).toList();
+  }
+
   void onFloorContentChanged(int key, String value) async {
     state = state.mapIndexed((i, e) {
       if (i != key) return e;
@@ -59,6 +66,10 @@ class OrderPlacementAddressesNotifier extends Notifier<List<OrderAddressModel>> 
     state = state.plus(OrderAddressModel.empty());
   }
 
+  void onDeleteAddressClicked(int key) async {
+    state = state.asMap().entries.where((entry) => entry.key != key).map((entry) => entry.value).toList();
+  }
+
   void onAddressPicked(int key, PlacesDetailsModel picked) async {
     if (picked.country == null || picked.geoPoint == null || picked.streetAddress == null) return;
     state = state.mapIndexed((i, e) {
@@ -74,3 +85,42 @@ class OrderPlacementAddressesNotifier extends Notifier<List<OrderAddressModel>> 
     }).toList();
   }
 }
+
+final totalFloorCostProvider = Provider<double>(
+  name: '$_name.totalFloorCostProvider',
+  dependencies: _scope.dependencies,
+  (ref) {
+    final addresses = ref.watch(addressesProvider);
+
+    return addresses.fold<double>(0.0, (sum, address) {
+      if (address.hasElevator ?? false) return sum;
+      if (address.country == null) return sum;
+
+      final pricePerFloor = floorPrice.floorPerLvelPrice(address.country!.code);
+      if (pricePerFloor == null) return sum;
+
+      final floorNumber = int.tryParse(address.floor ?? '1') ?? 1;
+      return sum + (pricePerFloor * floorNumber);
+    });
+  },
+).scoped(_scope);
+
+final totalAssemblyCostProvider = Provider<double>(
+  name: '$_name.totalAssemblyCostProvider',
+  dependencies: _scope.dependencies,
+  (ref) {
+    final addresses = ref.watch(addressesProvider);
+    final pickupAddress = addresses.getAtOrNull(pickUpAddressKey);
+
+    if (pickupAddress == null || pickupAddress.assembly != true) return 0.0;
+    if (pickupAddress.country == null) return 0.0;
+
+    return assemblyPrice.priceForCountry(pickupAddress.country!.code) ?? 0.0;
+  },
+).scoped(_scope);
+
+final additionalFeesProvider = Provider<double>(
+  name: '$_name.additionalFeesProvider',
+  dependencies: _scope.dependencies,
+  (ref) => ref.watch(totalFloorCostProvider) + ref.watch(totalAssemblyCostProvider),
+).scoped(_scope);

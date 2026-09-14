@@ -83,6 +83,7 @@ extension OrderAddressDtoMapperExt on AddressDto {
         contactPhone: contact?.phone,
         geoPoint: geoPoint.toGeoPointModel(),
         country: countryCode?.toCountryOrNull(),
+        assembly: null,
       );
 }
 

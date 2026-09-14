@@ -54,14 +54,18 @@ Future<void> _bootstrapDi() async {
     onOrderChanged: onOrderChanged,
   );
 
+  final orderManagementApi = OrderManagementApi(authedDio);
+
   final orderActivitiesApi = OrderActivitiesApi(authedDio);
   Di.orderActivitiesRepository = OrderActivitiesRepositoryImpl(
     orderActivitiesApi: orderActivitiesApi,
     userRepository: Di.userRepository,
+    orderApi: orderApi,
+    orderRepository: Di.orderRepository,
+    orderManagementApi: orderManagementApi,
     onOrderChanged: onOrderChanged,
   );
 
-  final orderManagementApi = OrderManagementApi(authedDio);
   Di.orderCandidateRepository = OrderCandidateRepositoryImpl(
     orderManagementApi: orderManagementApi,
     orderRepository: Di.orderRepository,
@@ -72,6 +76,12 @@ Future<void> _bootstrapDi() async {
     userRepository: Di.userRepository,
     orderPriceRecommendationApi: orderPriceRecommendationApi,
     orderApi: orderApi,
+  );
+
+  final orderRatingApi = OrderRatingApi(authedDio);
+  Di.orderRatingRepository = OrderRatingRepositoryImpl(
+    orderRatingApi: orderRatingApi,
+    orderRepository: Di.orderRepository,
   );
 
   /// Payment

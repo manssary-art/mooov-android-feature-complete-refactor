@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:generated_assets/generated_assets.dart';
 
 import '../../models/worker_application_form_status.dart';
+import '../../utils/postal_code_pattern.dart';
 import '../worker_application_form_image_field.dart';
 import '../worker_application_form_input_container.dart';
 import '../worker_application_form_input_field.dart';

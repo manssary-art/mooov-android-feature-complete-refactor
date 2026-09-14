@@ -17,3 +17,15 @@ class ActivitiesSideEffect$OpenUrl implements ActivitiesSideEffect {
 
   const ActivitiesSideEffect$OpenUrl({required this.url});
 }
+
+enum ActivitiesImageUploadType { pickup, delivered }
+
+class ActivitiesSideEffect$NavToImagePicker implements ActivitiesSideEffect {
+  final String orderId;
+  final ActivitiesImageUploadType type;
+
+  const ActivitiesSideEffect$NavToImagePicker({
+    required this.orderId,
+    required this.type,
+  });
+}

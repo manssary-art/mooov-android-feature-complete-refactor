@@ -11,6 +11,7 @@ import '../../../../models/worker_application_form_model.dart';
 import '../../../../repositories/upload/upload_repository.dart';
 import '../../../../core/ext/riverpod_ext.dart';
 import '../models/worker_application_form_status.dart';
+import '../utils/postal_code_pattern.dart';
 
 part 'worker_application_form_side_effects_providers.dart';
 

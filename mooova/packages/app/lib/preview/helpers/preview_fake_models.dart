@@ -126,6 +126,7 @@ OrderAddressModel fakeOrderAddressModel() {
     hasElevator: true,
     contactPhone: '+0000000000',
     country: Country.SE,
+    assembly: false,
     geoPoint: GeoPointModel(latitude: 59.332441, longitude: 18.064076),
   );
 }

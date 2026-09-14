@@ -210,11 +210,13 @@ class _OrderPlacementScreen extends HookConsumerWidget {
                   addresses: addresses,
                   isSubmitEnabled: isSubmitEnabled,
                   onHasElevatorToggled: addressesNotifier.onHasElevatorToggled,
+                  onAssemblyToggled: addressesNotifier.onAssemblyToggled,
                   onFloorContentChanged: addressesNotifier.onFloorContentChanged,
                   onDoorCodeContentChanged: addressesNotifier.onDoorCodeContentChanged,
                   onContactPhoneContentChanged: addressesNotifier.onContactPhoneContentChanged,
                   onStreetAddressClicked: addressesNotifier.onStreetAddressClicked,
                   onAddDeliveryAddressClicked: addressesNotifier.onAddDeliveryAddressClicked,
+                  onDeleteAddressClicked: addressesNotifier.onDeleteAddressClicked,
                   onPickUpTimesChanged: pickUpTimesNotifier.onValueChanged,
                   onContinueClicked: stepsNotifier.onContinueClicked,
                 );
@@ -223,11 +225,13 @@ class _OrderPlacementScreen extends HookConsumerWidget {
           OrderPlacementStep.price => HookConsumer(
               builder: (context, ref, child) {
                 final finalPrice = ref.watch(finalPriceProvider);
+                final additionalFees = ref.watch(additionalFeesProvider);
                 final orderSize = ref.watch(orderSizeProvider);
                 final numOfWorkersRequested = ref.watch(numOfWorkersRequestedProvider);
                 final recommendation = ref.watch(recommendationProvider)!;
                 return OrderPlacementStepPriceContent(
                   finalPrice: finalPrice,
+                  additionalFees: additionalFees,
                   orderSize: orderSize,
                   numOfWorkersRequested: numOfWorkersRequested,
                   recommendation: recommendation,

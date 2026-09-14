@@ -19,6 +19,7 @@ part 'order_placement_step_price_reference.dart';
 
 class OrderPlacementStepPriceContent extends HookWidget {
   final Money finalPrice;
+  final double additionalFees;
   final OrderSize orderSize;
   final int numOfWorkersRequested;
   final OrderPriceRecommendationModel recommendation;
@@ -30,6 +31,7 @@ class OrderPlacementStepPriceContent extends HookWidget {
   const OrderPlacementStepPriceContent({
     super.key,
     required this.finalPrice,
+    required this.additionalFees,
     required this.orderSize,
     required this.numOfWorkersRequested,
     required this.recommendation,
@@ -41,6 +43,18 @@ class OrderPlacementStepPriceContent extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final feesAppliedForSize = useRef<OrderSize?>(null);
+
+    useEffect(() {
+      if (additionalFees > 0 && feesAppliedForSize.value != orderSize) {
+        feesAppliedForSize.value = orderSize;
+        Future(() {
+          onFinalPriceChanged(finalPrice + additionalFees);
+        });
+      }
+      return null;
+    }, [orderSize]);
+
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -58,6 +72,44 @@ class OrderPlacementStepPriceContent extends HookWidget {
                 initial: finalPrice,
                 min: 0.0,
                 max: recommendation.priceLimit,
+              ),
+              if (additionalFees > 0) ...[
+                const SizedBox(height: 8),
+                Text(
+                  LocaleKeys.IncludesAssemblyStairsFees.tr(namedArgs: {'#1': recommendation.currency.format(additionalFees)}),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    left: BorderSide(
+                      color: Color(0xFFFFB800),
+                      width: 5,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: Colors.red,
+                      size: 15,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.PricesExcludeFeesNote.tr(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
               _OrderPlacementStepPriceContentNumOfWorkersRequested(

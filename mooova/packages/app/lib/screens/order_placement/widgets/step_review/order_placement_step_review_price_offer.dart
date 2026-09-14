@@ -15,58 +15,90 @@ class _OrderPlacementStepReviewContentOffer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final offer = LocaleKeys.OfferPrice.tr(namedArgs: {'#1': currency.format(finalPrice) ?? '', '#2': ""});
-    final fee = LocaleKeys.AdminFee.tr(namedArgs: {'#1': currency.format(adminFee) ?? '', '#2': ""});
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: ColorName.neutral5,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(
-              offer,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-            ),
+
+    final Money serviceFee = adminFee + (finalPrice * 0.10);
+    final serviceFeeText = LocaleKeys.ServiceFee.tr(namedArgs: {'#1': currency.format(serviceFee) ?? '', '#2': ""});
+
+    final Money totalGross = finalPrice + serviceFee;
+    final totalGrossText = LocaleKeys.TotalFee.tr(
+      namedArgs: {'#1': currency.format(totalGross), '#2': ""},
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: ColorName.neutral5,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Row(
-              children: [
-                Text(
-                  fee,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Text(
+                  offer,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        content: Text(LocaleKeys.AdminFeeDes.tr()),
-                      ),
-                    );
-                  },
-                  child: Icon(
-                    Icons.info,
-                    color: Theme.of(context).primaryColor,
-                    size: 16,
-                  ),
-                )
-              ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Row(
+                  children: [
+                    Text(
+                      serviceFeeText,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.info,
+                      color: Theme.of(context).primaryColor,
+                      size: 16,
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                totalGrossText,
+                textAlign: TextAlign.end,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(
+                color: Color(0xFFFFB800),
+                width: 5,
+              ),
             ),
           ),
-          Text(
-            LocaleKeys.TotalFee.tr(
-              namedArgs: {'#1': currency.format(finalPrice + adminFee), '#2': ""},
-            ),
-            textAlign: TextAlign.end,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.info_outline,
+                color: Colors.red,
+                size: 15,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  LocaleKeys.TaxesDeductedAtPaymentNote.tr(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
