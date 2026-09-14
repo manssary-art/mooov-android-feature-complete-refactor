@@ -131,4 +131,12 @@ class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
             .asHttpResponseResult()
             .onValue((e) => orderRepository.getOrderById(orderId: orderId));
       });
+
+  @override
+  Future<Result<void>> cancelOrder({required String orderId}) => resultOf(() async {
+        return orderManagementApi
+            .setOrderRefunded(orderId: orderId)
+            .asHttpResponseResult()
+            .onValue((e) => orderRepository.getOrderById(orderId: orderId));
+      });
 }

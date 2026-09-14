@@ -20,4 +20,6 @@ abstract interface class OrderActivitiesRepository {
     required String orderId,
     required List<String> deliveredImages,
   });
+
+  Future<Result<void>> cancelOrder({required String orderId});
 }
