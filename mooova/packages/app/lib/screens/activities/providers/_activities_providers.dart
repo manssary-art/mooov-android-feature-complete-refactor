@@ -12,6 +12,7 @@ import '../../../../core/ext/riverpod_ext.dart';
 import '../ext/order_model_ext.dart';
 import '../models/activities_order_item.dart';
 import '../models/activities_tab.dart';
+import '../../../../bootstrap/bootstrap.dart';
 
 part 'activities_side_effects_providers.dart';
 
@@ -149,5 +150,29 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
     final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
     await orderActivitiesRepository.cancelOrder(orderId: orderId);
     ref.invalidateSelf();
+  }
+
+  void onOwnerEmailSupportClicked(String orderId) {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: Env.supportEmail,
+      queryParameters: {
+        'subject': 'Order support',
+        'body': 'OID:$orderId\n\n',
+      },
+    );
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: uri.toString()));
+  }
+
+  void onWorkerEmailSupportClicked(String orderId) {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: Env.supportEmail,
+      queryParameters: {
+        'subject': 'Order support',
+        'body': 'OID:$orderId\n\n',
+      },
+    );
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: uri.toString()));
   }
 }
