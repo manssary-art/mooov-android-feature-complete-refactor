@@ -49,9 +49,11 @@ final isSubmitEnabledProvider = Provider<bool>(
     if (birthday == null) return false;
     if (!streetAddress.isNotEmpty) return false;
     if (!zipCode.isNotEmpty) return false;
-    if (!city.isNotEmpty) return false;
     if (country == null) return false;
+    if (!postalCodePattern.isValidPostalCode(country.code.toString(), zipCode)) return false;
+    if (!city.isNotEmpty) return false;
     if (!iban.isNotEmpty) return false;
+    if (!iban.isValidIban) return false;
     if (!(idFront.$1 != null || idFront.$2 != null)) return false;
     if (!(idBack.$1 != null || idBack.$2 != null)) return false;
     if (!(selfie.$1 != null || selfie.$2 != null)) return false;
