@@ -132,8 +132,8 @@ class _OrderPaymentScreen extends HookConsumerWidget {
                 onSaveCardChanged: isSaveCardNotifier.onValueChanged,
                 onCardNumberChanged: cardNumberNotifier.onValueChanged,
                 onCvcNumberChanged: cardCVCNotifier.onValueChanged,
-                onExpMonthChanged: cardExpirationYearNotifier.onValueChanged,
-                onExpYearChanged: cardExpirationMonthNotifier.onValueChanged,
+                onExpMonthChanged: cardExpirationMonthNotifier.onValueChanged,
+                onExpYearChanged: cardExpirationYearNotifier.onValueChanged,
               );
             },
           )
