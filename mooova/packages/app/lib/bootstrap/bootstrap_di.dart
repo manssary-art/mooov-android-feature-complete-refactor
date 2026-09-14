@@ -58,6 +58,8 @@ Future<void> _bootstrapDi() async {
   Di.orderActivitiesRepository = OrderActivitiesRepositoryImpl(
     orderActivitiesApi: orderActivitiesApi,
     userRepository: Di.userRepository,
+    orderApi: orderApi,
+    orderRepository: Di.orderRepository,
     onOrderChanged: onOrderChanged,
   );
 
