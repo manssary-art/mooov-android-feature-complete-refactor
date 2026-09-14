@@ -12,12 +12,14 @@ class ActivitiesScreen extends HookConsumerWidget {
   final void Function(String orderId) onNavToOrderDetails;
   final void Function(String orderId) onNavToWorkerSelection;
   final void Function(String orderId) onNavToOrderRating;
+  final void Function(String orderId) onNavToOrderPlacementDuplicate;
 
   const ActivitiesScreen({
     super.key,
     required this.onNavToOrderDetails,
     required this.onNavToWorkerSelection,
     required this.onNavToOrderRating,
+    required this.onNavToOrderPlacementDuplicate,
   });
 
   @override
@@ -80,7 +82,7 @@ class ActivitiesScreen extends HookConsumerWidget {
           onOwnerPhoneSmsWorkerClicked: initialNotifier.onOwnerPhoneSmsWorkerClicked,
           onOwnerDeliveryDoneClicked: initialNotifier.onOwnerDeliveryDoneClicked,
           onOwnerRateOrderClicked: onNavToOrderRating,
-          onOwnerRenewOrderClicked: (_) {},
+          onOwnerRenewOrderClicked: onNavToOrderPlacementDuplicate,
           onWorkerPhoneCallOwnerClicked: initialNotifier.onWorkerPhoneCallOwnerClicked,
           onWorkerPhoneSmsOwnerClicked: initialNotifier.onWorkerPhoneSmsOwnerClicked,
           onWorkerUploadPickedUpImageClicked: (_) {},

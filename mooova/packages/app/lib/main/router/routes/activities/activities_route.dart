@@ -7,6 +7,7 @@ import '../../redirects/authentication_redirect.dart';
 import '../../transitions/fade_transition_page.dart';
 import '../authentication/authentication_route.dart';
 import '../order_details/order_details_route.dart';
+import '../order_placement/order_placement_route.dart';
 import '../order_rating/order_rating_route.dart';
 import '../order_worker_selection/order_worker_selection_route.dart';
 
@@ -32,6 +33,8 @@ RouteBase activitiesRoute({
               onNavToOrderDetails: (orderId) => context.push(orderDetailsPath(orderId: orderId)),
               onNavToWorkerSelection: (orderId) => context.push(orderWorkerSelectionPath(orderId: orderId)),
               onNavToOrderRating: (orderId) => context.push(orderRatingPath(orderId: orderId)),
+              onNavToOrderPlacementDuplicate: (orderId) =>
+                  context.push(orderPlacementDuplicatePath(orderId: orderId)),
             );
           },
         ),
