@@ -24,6 +24,7 @@ class OrderPlacementStepAddressContent extends HookWidget {
   final void Function(List<DateTime> value) onPickUpTimesChanged;
   final void Function(int key) onStreetAddressClicked;
   final void Function() onAddDeliveryAddressClicked;
+  final void Function(int key) onDeleteAddressClicked;
   final void Function() onContinueClicked;
 
   const OrderPlacementStepAddressContent({
@@ -37,6 +38,7 @@ class OrderPlacementStepAddressContent extends HookWidget {
     required this.onContactPhoneContentChanged,
     required this.onStreetAddressClicked,
     required this.onAddDeliveryAddressClicked,
+    required this.onDeleteAddressClicked,
     required this.onContinueClicked,
     required this.onPickUpTimesChanged,
   });
@@ -68,6 +70,7 @@ class OrderPlacementStepAddressContent extends HookWidget {
                   country: entry.value.country,
                   assembly: entry.value.assembly ?? false,
                   onAssemblyToggled: (value) => onAssemblyToggled(entry.key, value),
+                  onDeleteClicked: entry.key == 1 ? null : () => onDeleteAddressClicked(entry.key),
                   onStreetAddressClicked: () => onStreetAddressClicked(entry.key),
                   onHasElevatorToggled: (value) => onHasElevatorToggled(entry.key, value),
                   onFloorContentChanged: (value) => onFloorContentChanged(entry.key, value),
