@@ -4,20 +4,28 @@ import 'package:async/async.dart';
 import 'package:core/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:network_api/apis/order_activities_api.dart';
+import 'package:network_api/apis/order_api.dart';
+import 'package:network_api/dtos/order_update_dto.dart';
 import 'package:network_api/ext/http_response_ext.dart';
 
+import '../../models/mappers/date_time_mapper.dart';
 import '../../models/mappers/order_mapper.dart';
 import '../../models/order_model.dart';
 import '../user/user_repository.dart';
 import 'order_activities_repository.dart';
+import 'order_repository.dart';
 
 class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
   final OrderActivitiesApi orderActivitiesApi;
   final UserRepository userRepository;
+  final OrderApi orderApi;
+  final OrderRepository orderRepository;
 
   OrderActivitiesRepositoryImpl({
     required this.orderActivitiesApi,
     required this.userRepository,
+    required this.orderApi,
+    required this.orderRepository,
     required StreamController<OrderModel> onOrderChanged,
   }) {
     _onStart(onOrderChanged);
@@ -53,5 +61,31 @@ class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
             .flatMapValue((e) => orderActivitiesApi.getOrdersForUser(userId: e).asHttpResponseResult())
             .mapValue((e) => e.mapNotNull((e) => e.toOrderModelOrNull()))
             .onValue((e) => _onRelatedOrdersChanged.add(e));
+      });
+
+  @override
+  Future<Result<void>> increaseOrderPrice({required String orderId, required double newPrice}) => resultOf(() async {
+        return orderRepository.getOrderById(orderId: orderId).flatMapValue((currentOrder) {
+          final dto = OrderUpdateDto(
+            orderId: orderId,
+            description: null,
+            finalPrice: newPrice,
+            adminFee: null,
+            images: null,
+            deliveryAddresses: null,
+            pickupAddress: null,
+            numOfWorkersRequested: null,
+            orderType: null,
+            orderSize: null,
+            itemCondition: null,
+            currencyCode: null,
+            ownerId: null,
+            pickupTime: (currentOrder.pickupTime ?? []).toDtoTimeInts(),
+          );
+          return orderApi
+              .updateOrder(orderId: orderId, body: dto)
+              .asHttpResponseResult()
+              .onValue((e) => orderRepository.getOrderById(orderId: orderId));
+        });
       });
 }
