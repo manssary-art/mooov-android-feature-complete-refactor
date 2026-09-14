@@ -15,7 +15,15 @@ class _OrderPlacementStepReviewContentOffer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final offer = LocaleKeys.OfferPrice.tr(namedArgs: {'#1': currency.format(finalPrice) ?? '', '#2': ""});
-    final fee = LocaleKeys.AdminFee.tr(namedArgs: {'#1': currency.format(adminFee) ?? '', '#2': ""});
+
+    final Money serviceFee = adminFee + (finalPrice * 0.10);
+    final serviceFeeText = LocaleKeys.ServiceFee.tr(namedArgs: {'#1': currency.format(serviceFee) ?? '', '#2': ""});
+
+    final Money totalGross = finalPrice + serviceFee;
+    final totalGrossText = LocaleKeys.TotalFee.tr(
+      namedArgs: {'#1': currency.format(totalGross), '#2': ""},
+    );
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
@@ -37,31 +45,20 @@ class _OrderPlacementStepReviewContentOffer extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  fee,
+                  serviceFeeText,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        content: Text(LocaleKeys.AdminFeeDes.tr()),
-                      ),
-                    );
-                  },
-                  child: Icon(
-                    Icons.info,
-                    color: Theme.of(context).primaryColor,
-                    size: 16,
-                  ),
-                )
+                const SizedBox(width: 4),
+                Icon(
+                  Icons.info,
+                  color: Theme.of(context).primaryColor,
+                  size: 16,
+                ),
               ],
             ),
           ),
           Text(
-            LocaleKeys.TotalFee.tr(
-              namedArgs: {'#1': currency.format(finalPrice + adminFee), '#2': ""},
-            ),
+            totalGrossText,
             textAlign: TextAlign.end,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
           ),
