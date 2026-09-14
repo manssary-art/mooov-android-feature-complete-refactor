@@ -84,7 +84,7 @@ class ActivitiesScreen extends HookConsumerWidget {
           onPullToRefresh: initialNotifier.onPullToRefresh,
           onItemClicked: onNavToOrderDetails,
           onOwnerIncreasePriceClicked: initialNotifier.onOwnerIncreasePriceClicked,
-          onOwnerEmailSupportClicked: (_) {},
+          onOwnerEmailSupportClicked: initialNotifier.onOwnerEmailSupportClicked,
           onOwnerSelectCandidateClicked: onNavToWorkerSelection,
           onOwnerPhoneCallWorkerClicked: initialNotifier.onOwnerPhoneCallWorkerClicked,
           onOwnerPhoneSmsWorkerClicked: initialNotifier.onOwnerPhoneSmsWorkerClicked,
@@ -102,7 +102,7 @@ class ActivitiesScreen extends HookConsumerWidget {
             ),
           ),
           onWorkerDeliveryDoneClicked: (_) {},
-          onWorkerEmailSupportClicked: (_) {},
+          onWorkerEmailSupportClicked: initialNotifier.onWorkerEmailSupportClicked,
         );
       },
     );
