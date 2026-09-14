@@ -53,6 +53,12 @@ abstract class  LocaleKeys {
   static const Today = 'Today';
   static const Tomorrow = 'Tomorrow';
   static const SearchAddress = 'SearchAddress';
+  static const PleaseSelectAddressFirst = 'PleaseSelectAddressFirst';
+  static const DisassemblyAtPickup = 'DisassemblyAtPickup';
+  static const NeedHelpDisassemblingMessage = 'NeedHelpDisassemblingMessage';
+  static const StairsSurchargeMessage = 'StairsSurchargeMessage';
+  static const PricesExcludeFeesNote = 'PricesExcludeFeesNote';
+  static const IncludesAssemblyStairsFees = 'IncludesAssemblyStairsFees';
   static const PriceViewTitle = 'PriceViewTitle';
   static const PriceViewDes = 'PriceViewDes';
   static const PriceWheelDes = 'PriceWheelDes';
