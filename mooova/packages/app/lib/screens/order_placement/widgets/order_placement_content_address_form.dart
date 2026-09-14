@@ -102,6 +102,124 @@ class OrderPlacementContentAddressForm extends HookWidget {
             ),
           ],
         ),
+
+        if (icon == Assets.images.iconMarkerPickUp) ...[
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Checkbox(
+                        value: assembly,
+                        activeColor: Colors.yellow,
+                        onChanged: (val) => onAssemblyToggled?.call(val ?? false),
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        LocaleKeys.DisassemblyAtPickup.tr(),
+                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (assembly) ...[
+            const SizedBox(height: 8),
+            if (country == null)
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Text(
+                  LocaleKeys.PleaseSelectAddressFirst.tr(),
+                  style: const TextStyle(color: Colors.red, fontSize: 13, fontWeight: FontWeight.bold),
+                ),
+              )
+            else
+              Builder(builder: (context) {
+                final currencyCode = country!.code;
+                final assemblyFee = assemblyPrice.priceForCountry(currencyCode);
+                if (assemblyFee == null) return const SizedBox.shrink();
+                final symbol = currencySymbol.forCountry(currencyCode);
+                return Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.yellow.shade700, width: 1.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.info_outline, color: Colors.yellow.shade700, size: 20),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          LocaleKeys.NeedHelpDisassemblingMessage.tr(namedArgs: {'#1': '$symbol$assemblyFee'}),
+                          style: const TextStyle(color: Colors.black54, fontSize: 13, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+          ],
+        ],
+
+        const SizedBox(height: 8),
+        if (!hasElevator) ...[
+          if (country == null)
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Text(
+                LocaleKeys.PleaseSelectAddressFirst.tr(),
+                style: const TextStyle(color: Colors.red, fontSize: 13, fontWeight: FontWeight.bold),
+              ),
+            )
+          else
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.orange.withOpacity(0.15),
+                border: Border.all(color: Colors.orange, width: 1.5),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Builder(builder: (context) {
+                    final currencyCode = country!.code;
+                    final Money? pricePerFloor = floorPrice.floorPerLvelPrice(currencyCode);
+                    if (pricePerFloor == null) return const SizedBox.shrink();
+                    final floorNumber = int.tryParse(floors) ?? 1;
+                    final Money totalCost = pricePerFloor * floorNumber;
+                    final symbol = currencySymbol.forCountry(currencyCode);
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text(
+                        LocaleKeys.StairsSurchargeMessage.tr(namedArgs: {
+                          '#1': '$symbol$pricePerFloor',
+                          '#2': '$floorNumber',
+                          '#3': '$symbol${totalCost.toStringAsFixed(1)}',
+                        }),
+                        style: TextStyle(color: Colors.red[700], fontSize: 13, fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+        ],
+
         const SizedBox(height: 16),
         Row(
           children: [
@@ -167,5 +285,56 @@ class OrderPlacementContentAddressForm extends HookWidget {
         ),
       ],
     );
+  }
+}
+
+abstract class floorPrice {
+  static const _floorPriceMap = {
+    'SE': 50.0,
+    'NO': 50.0,
+    'NL': 5.0,
+    'DE': 5.0,
+    'FI': 5.0,
+    'ES': 5.0,
+    'GR': 5.0,
+    'PT': 5.0,
+  };
+
+  static Money? floorPerLvelPrice(String currencyCode) {
+    return _floorPriceMap[currencyCode.toUpperCase()];
+  }
+}
+
+abstract class currencySymbol {
+  static const _symbolMap = {
+    'SE': 'kr',
+    'NO': 'kr',
+    'NL': '€',
+    'DE': '€',
+    'FI': '€',
+    'ES': '€',
+    'GR': '€',
+    'PT': '€',
+  };
+
+  static String forCountry(String countryCode) {
+    return _symbolMap[countryCode.toUpperCase()] ?? '€';
+  }
+}
+
+abstract class assemblyPrice {
+  static const Map<String, double> disassemblyPrices = {
+    'SE': 120.0,
+    'NO': 120.0,
+    'NL': 10.0,
+    'DE': 10.0,
+    'FI': 10.0,
+    'ES': 7.0,
+    'GR': 7.0,
+    'PT': 7.0,
+  };
+
+  static double? priceForCountry(String currencyCode) {
+    return disassemblyPrices[currencyCode.toUpperCase()];
   }
 }
