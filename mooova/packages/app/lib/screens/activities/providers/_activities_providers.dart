@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../di/di.dart';
+import '../../../../repositories/upload/upload_repository.dart';
 import '../../../../repositories/user/user_repository.dart';
 import '../../../../core/ext/riverpod_ext.dart';
 import '../ext/order_model_ext.dart';
@@ -22,6 +24,8 @@ final _scope = ProviderScopeContainer();
 final orderActivitiesRepositoryProvider = Provider((ref) => Di.orderActivitiesRepository);
 
 final userRepositoryProvider = Provider((ref) => Di.userRepository);
+
+final uploadRepositoryProvider = Provider((ref) => Di.uploadRepository);
 
 final activitiesProvider = StreamNotifierProvider<ActivitiesNotifier, List<ActivitiesOrderItem>>(
   name: '$_name.activitiesProvider',
@@ -104,6 +108,40 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
   Future<void> onOwnerDeliveryDoneClicked(String orderId) async {
     final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
     await orderActivitiesRepository.confirmDelivery(orderId: orderId);
+    ref.invalidateSelf();
+  }
+
+  void onWorkerUploadPickedUpImageClicked(String orderId) {
+    _sideEffects().add(
+      ActivitiesSideEffect$NavToImagePicker(orderId: orderId, type: ActivitiesImageUploadType.pickup),
+    );
+  }
+
+  void onWorkerUploadDeliveredImageClicked(String orderId) {
+    _sideEffects().add(
+      ActivitiesSideEffect$NavToImagePicker(orderId: orderId, type: ActivitiesImageUploadType.delivered),
+    );
+  }
+
+  Future<void> onImagePicked({
+    required String orderId,
+    required ActivitiesImageUploadType type,
+    required XFile file,
+  }) async {
+    final uploadRepository = ref.read(uploadRepositoryProvider);
+    final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
+
+    final uploadResult = await uploadRepository.upload(file: file, type: UploadFolderType.order);
+
+    await uploadResult.onValue((url) async {
+      switch (type) {
+        case ActivitiesImageUploadType.pickup:
+          await orderActivitiesRepository.setOrderPickedUp(orderId: orderId, pickupImages: [url]);
+        case ActivitiesImageUploadType.delivered:
+          await orderActivitiesRepository.setOrderDelivered(orderId: orderId, deliveredImages: [url]);
+      }
+    });
+
     ref.invalidateSelf();
   }
 }
