@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/ext/riverpod_ext.dart';
 import '../../core/hooks/flutter_hooks.dart';
@@ -28,7 +29,10 @@ class ActivitiesScreen extends HookConsumerWidget {
         switch (effect) {
           case ActivitiesSideEffect$NavToProfile():
             break;
-          case ActivitiesSideEffect$OpenUrl():
+          case ActivitiesSideEffect$OpenUrl(:final url):
+            try {
+              await launchUrl(Uri.parse(url));
+            } catch (_) {}
             break;
         }
       }).cancel,
@@ -70,13 +74,13 @@ class ActivitiesScreen extends HookConsumerWidget {
           onOwnerIncreasePriceClicked: initialNotifier.onOwnerIncreasePriceClicked,
           onOwnerEmailSupportClicked: (_) {},
           onOwnerSelectCandidateClicked: onNavToWorkerSelection,
-          onOwnerPhoneCallWorkerClicked: (_) {},
-          onOwnerPhoneSmsWorkerClicked: (_) {},
+          onOwnerPhoneCallWorkerClicked: initialNotifier.onOwnerPhoneCallWorkerClicked,
+          onOwnerPhoneSmsWorkerClicked: initialNotifier.onOwnerPhoneSmsWorkerClicked,
           onOwnerDeliveryDoneClicked: (_) {},
           onOwnerRateOrderClicked: (_) {},
           onOwnerRenewOrderClicked: (_) {},
-          onWorkerPhoneCallOwnerClicked: (_) {},
-          onWorkerPhoneSmsOwnerClicked: (_) {},
+          onWorkerPhoneCallOwnerClicked: initialNotifier.onWorkerPhoneCallOwnerClicked,
+          onWorkerPhoneSmsOwnerClicked: initialNotifier.onWorkerPhoneSmsOwnerClicked,
           onWorkerUploadPickedUpImageClicked: (_) {},
           onWorkerUploadDeliveredImageClicked: (_) {},
           onWorkerCancelAndRefundClicked: (_) {},
