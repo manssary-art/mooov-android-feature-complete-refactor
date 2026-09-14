@@ -24,6 +24,7 @@ class OrderPlacementContentAddressForm extends HookWidget {
   final ValueSetter<String> onDoorCodeContentChanged;
   final ValueSetter<String> onContactPhoneContentChanged;
   final VoidCallback onStreetAddressClicked;
+  final VoidCallback? onDeleteClicked;
 
   const OrderPlacementContentAddressForm({
     super.key,
@@ -39,6 +40,7 @@ class OrderPlacementContentAddressForm extends HookWidget {
     required this.onContactPhoneContentChanged,
     required this.onHasElevatorToggled,
     required this.onStreetAddressClicked,
+    this.onDeleteClicked,
     this.country,
     this.onAssemblyToggled,
     this.assembly = false,
@@ -49,10 +51,24 @@ class OrderPlacementContentAddressForm extends HookWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SimpleAssetImageTextTile(
-          image: icon,
-          text: title,
-          textStyle: Theme.of(context).textTheme.titleLarge,
+        Row(
+          children: [
+            Expanded(
+              child: SimpleAssetImageTextTile(
+                image: icon,
+                text: title,
+                textStyle: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            if (icon == Assets.images.iconMarkerDropOff)
+              GestureDetector(
+                onTap: onDeleteClicked,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Icon(Icons.delete_outline, size: 20, color: Colors.red),
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: 8),
         Clickable(
