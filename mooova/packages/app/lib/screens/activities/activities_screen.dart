@@ -67,7 +67,7 @@ class ActivitiesScreen extends HookConsumerWidget {
           isRefreshing: useUpdateState(initial.isRefreshing),
           onPullToRefresh: initialNotifier.onPullToRefresh,
           onItemClicked: onNavToOrderDetails,
-          onOwnerIncreasePriceClicked: (_) {},
+          onOwnerIncreasePriceClicked: initialNotifier.onOwnerIncreasePriceClicked,
           onOwnerEmailSupportClicked: (_) {},
           onOwnerSelectCandidateClicked: onNavToWorkerSelection,
           onOwnerPhoneCallWorkerClicked: (_) {},
