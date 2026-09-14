@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ class OrderPlacementContentAddressForm extends HookWidget {
   final String floors;
   final String doorCode;
   final String contactPhone;
+  final Country? country;
+  final bool assembly;
+  final ValueSetter<bool>? onAssemblyToggled;
   final ValueSetter<bool> onHasElevatorToggled;
   final ValueSetter<String> onFloorContentChanged;
   final ValueSetter<String> onDoorCodeContentChanged;
@@ -35,6 +39,9 @@ class OrderPlacementContentAddressForm extends HookWidget {
     required this.onContactPhoneContentChanged,
     required this.onHasElevatorToggled,
     required this.onStreetAddressClicked,
+    this.country,
+    this.onAssemblyToggled,
+    this.assembly = false,
   });
 
   @override
