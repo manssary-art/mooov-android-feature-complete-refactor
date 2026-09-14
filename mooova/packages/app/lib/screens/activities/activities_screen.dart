@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/ext/riverpod_ext.dart';
 import '../../core/hooks/flutter_hooks.dart';
+import '../../main/router/routes/utilities/image_picker_route.dart';
 import 'providers/_activities_providers.dart';
 import 'widgets/content/activities_screen_content.dart';
 
@@ -37,6 +38,12 @@ class ActivitiesScreen extends HookConsumerWidget {
             try {
               await launchUrl(Uri.parse(url));
             } catch (_) {}
+            break;
+          case ActivitiesSideEffect$NavToImagePicker(:final orderId, :final type):
+            final file = await showImagePickerBottomModalSheet(context: context);
+            if (file != null) {
+              await initialNotifier.onImagePicked(orderId: orderId, type: type, file: file);
+            }
             break;
         }
       }).cancel,
@@ -85,8 +92,8 @@ class ActivitiesScreen extends HookConsumerWidget {
           onOwnerRenewOrderClicked: onNavToOrderPlacementDuplicate,
           onWorkerPhoneCallOwnerClicked: initialNotifier.onWorkerPhoneCallOwnerClicked,
           onWorkerPhoneSmsOwnerClicked: initialNotifier.onWorkerPhoneSmsOwnerClicked,
-          onWorkerUploadPickedUpImageClicked: (_) {},
-          onWorkerUploadDeliveredImageClicked: (_) {},
+          onWorkerUploadPickedUpImageClicked: initialNotifier.onWorkerUploadPickedUpImageClicked,
+          onWorkerUploadDeliveredImageClicked: initialNotifier.onWorkerUploadDeliveredImageClicked,
           onWorkerCancelAndRefundClicked: (_) {},
           onWorkerDeliveryDoneClicked: (_) {},
           onWorkerEmailSupportClicked: (_) {},
