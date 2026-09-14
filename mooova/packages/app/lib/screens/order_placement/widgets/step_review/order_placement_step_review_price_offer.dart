@@ -24,46 +24,81 @@ class _OrderPlacementStepReviewContentOffer extends StatelessWidget {
       namedArgs: {'#1': currency.format(totalGross), '#2': ""},
     );
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: ColorName.neutral5,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(
-              offer,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: ColorName.neutral5,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Row(
-              children: [
-                Text(
-                  serviceFeeText,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Text(
+                  offer,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(width: 4),
-                Icon(
-                  Icons.info,
-                  color: Theme.of(context).primaryColor,
-                  size: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Row(
+                  children: [
+                    Text(
+                      serviceFeeText,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.info,
+                      color: Theme.of(context).primaryColor,
+                      size: 16,
+                    ),
+                  ],
                 ),
-              ],
+              ),
+              Text(
+                totalGrossText,
+                textAlign: TextAlign.end,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(
+                color: Color(0xFFFFB800),
+                width: 5,
+              ),
             ),
           ),
-          Text(
-            totalGrossText,
-            textAlign: TextAlign.end,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14, fontWeight: FontWeight.w500),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.info_outline,
+                color: Colors.red,
+                size: 15,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  LocaleKeys.TaxesDeductedAtPaymentNote.tr(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
