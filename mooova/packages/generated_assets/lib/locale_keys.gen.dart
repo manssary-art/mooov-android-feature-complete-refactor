@@ -70,6 +70,7 @@ abstract class  LocaleKeys {
   static const AdminFee = 'AdminFee';
   static const ServiceFee = 'ServiceFee';
   static const TotalFee = 'TotalFee';
+  static const TaxesDeductedAtPaymentNote = 'TaxesDeductedAtPaymentNote';
   static const CheckBoxDes = 'CheckBoxDes';
   static const Submit = 'Submit';
   static const AdminFeeDes = 'AdminFeeDes';

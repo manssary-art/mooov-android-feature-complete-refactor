@@ -68,6 +68,7 @@
   "AdminFee": "Small fee {#1} {#2}",
   "ServiceFee": "Service fee {#1} {#2}",
   "TotalFee": "Total gross {#1} {#2}",
+  "TaxesDeductedAtPaymentNote": "Taxes are deducted at payment based on your country.",
   "CheckBoxDes": "Yep, I hereby acknowledge that what is being collected matches the image and description, does not contain the toxic or harmful substance, and will be available at the time for collection or delivery.",
   "Submit": "Publish",
   "AdminFeeDes": "A small fee to buy the team a coffee.",
