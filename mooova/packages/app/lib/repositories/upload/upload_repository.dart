@@ -5,7 +5,8 @@ enum UploadFolderType {
   product('product'),
   profile('profile'),
   vehicle('vehicle'),
-  document('document');
+  document('document'),
+  order('order');
 
   final String value;
 
