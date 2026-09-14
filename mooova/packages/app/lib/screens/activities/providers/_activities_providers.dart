@@ -72,4 +72,32 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
     await orderActivitiesRepository.increaseOrderPrice(orderId: orderId, newPrice: newPrice);
     ref.invalidateSelf();
   }
+
+  void onOwnerPhoneCallWorkerClicked(String orderId) {
+    final item = state.requireValue.whereType<ActivitiesOrderItem$Owner>().firstWhere((e) => e.order.orderId == orderId);
+    final phone = item.order.worker?.phone;
+    if (phone == null) return;
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: 'tel:$phone'));
+  }
+
+  void onOwnerPhoneSmsWorkerClicked(String orderId) {
+    final item = state.requireValue.whereType<ActivitiesOrderItem$Owner>().firstWhere((e) => e.order.orderId == orderId);
+    final phone = item.order.worker?.phone;
+    if (phone == null) return;
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: 'sms:$phone'));
+  }
+
+  void onWorkerPhoneCallOwnerClicked(String orderId) {
+    final item = state.requireValue.whereType<ActivitiesOrderItem$Worker>().firstWhere((e) => e.order.orderId == orderId);
+    final phone = item.order.owner.phone;
+    if (phone == null) return;
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: 'tel:$phone'));
+  }
+
+  void onWorkerPhoneSmsOwnerClicked(String orderId) {
+    final item = state.requireValue.whereType<ActivitiesOrderItem$Worker>().firstWhere((e) => e.order.orderId == orderId);
+    final phone = item.order.owner.phone;
+    if (phone == null) return;
+    _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: 'sms:$phone'));
+  }
 }
