@@ -66,6 +66,10 @@ class OrderPlacementAddressesNotifier extends Notifier<List<OrderAddressModel>> 
     state = state.plus(OrderAddressModel.empty());
   }
 
+  void onDeleteAddressClicked(int key) async {
+    state = state.asMap().entries.where((entry) => entry.key != key).map((entry) => entry.value).toList();
+  }
+
   void onAddressPicked(int key, PlacesDetailsModel picked) async {
     if (picked.country == null || picked.geoPoint == null || picked.streetAddress == null) return;
     state = state.mapIndexed((i, e) {
