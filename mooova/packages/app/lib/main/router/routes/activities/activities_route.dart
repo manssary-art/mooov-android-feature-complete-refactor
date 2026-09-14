@@ -7,6 +7,7 @@ import '../../redirects/authentication_redirect.dart';
 import '../../transitions/fade_transition_page.dart';
 import '../authentication/authentication_route.dart';
 import '../order_details/order_details_route.dart';
+import '../order_rating/order_rating_route.dart';
 import '../order_worker_selection/order_worker_selection_route.dart';
 
 const _routePath = '/activities';
@@ -30,6 +31,7 @@ RouteBase activitiesRoute({
             return lazy_activities_screen.ActivitiesScreen(
               onNavToOrderDetails: (orderId) => context.push(orderDetailsPath(orderId: orderId)),
               onNavToWorkerSelection: (orderId) => context.push(orderWorkerSelectionPath(orderId: orderId)),
+              onNavToOrderRating: (orderId) => context.push(orderRatingPath(orderId: orderId)),
             );
           },
         ),

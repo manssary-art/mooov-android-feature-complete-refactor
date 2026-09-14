@@ -11,11 +11,13 @@ import 'widgets/content/activities_screen_content.dart';
 class ActivitiesScreen extends HookConsumerWidget {
   final void Function(String orderId) onNavToOrderDetails;
   final void Function(String orderId) onNavToWorkerSelection;
+  final void Function(String orderId) onNavToOrderRating;
 
   const ActivitiesScreen({
     super.key,
     required this.onNavToOrderDetails,
     required this.onNavToWorkerSelection,
+    required this.onNavToOrderRating,
   });
 
   @override
@@ -77,7 +79,7 @@ class ActivitiesScreen extends HookConsumerWidget {
           onOwnerPhoneCallWorkerClicked: initialNotifier.onOwnerPhoneCallWorkerClicked,
           onOwnerPhoneSmsWorkerClicked: initialNotifier.onOwnerPhoneSmsWorkerClicked,
           onOwnerDeliveryDoneClicked: initialNotifier.onOwnerDeliveryDoneClicked,
-          onOwnerRateOrderClicked: (_) {},
+          onOwnerRateOrderClicked: onNavToOrderRating,
           onOwnerRenewOrderClicked: (_) {},
           onWorkerPhoneCallOwnerClicked: initialNotifier.onWorkerPhoneCallOwnerClicked,
           onWorkerPhoneSmsOwnerClicked: initialNotifier.onWorkerPhoneSmsOwnerClicked,
