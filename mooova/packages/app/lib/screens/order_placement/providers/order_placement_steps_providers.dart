@@ -15,6 +15,7 @@ class OrderPlacementStepsNotifier extends Notifier<(int index, List<OrderPlaceme
   }
 
   late final _initialOrderModel = () => ref.read(orderPlacementProvider);
+  late final _isDuplicateMode = () => ref.read(orderPlacementProvider.notifier).isDuplicateMode;
   late final _sideEffect = () => ref.read(sideEffectProvider);
   late final _orderPlacementRepository = () => ref.read(orderPlacementRepositoryProvider);
   late final _orderSize = () => ref.read(orderSizeProvider.notifier);
@@ -82,7 +83,7 @@ class OrderPlacementStepsNotifier extends Notifier<(int index, List<OrderPlaceme
       final deliveryAddresses = addresses.where((e) => e.isFilled).toList();
       await _orderPlacementRepository()
           .createOrUpdateOrder(
-            orderId: _initialOrderModel().value!.$2?.orderId,
+            orderId: _isDuplicateMode() ? null : _initialOrderModel().value!.$2?.orderId,
             orderType: _initialOrderModel().value!.$1,
             orderSize: _orderSize().state,
             description: _description().state,

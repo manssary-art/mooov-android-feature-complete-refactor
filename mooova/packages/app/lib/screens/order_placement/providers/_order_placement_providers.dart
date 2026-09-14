@@ -56,6 +56,11 @@ class OrderPlacementNotifier extends AsyncNotifier<(OrderType, OrderModel?)> {
 
   OrderPlacementNotifier(this._mode);
 
+  bool get isDuplicateMode => switch (_mode) {
+        OrderPlacementMode$Edit(:final duplicate) => duplicate,
+        OrderPlacementMode$New() => false,
+      };
+
   @override
   FutureOr<(OrderType, OrderModel?)> build() async => switch (_mode) {
         OrderPlacementMode$New mode => Result.value((mode.orderType, null)),
