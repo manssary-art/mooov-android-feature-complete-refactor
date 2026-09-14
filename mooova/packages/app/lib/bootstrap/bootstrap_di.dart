@@ -78,6 +78,12 @@ Future<void> _bootstrapDi() async {
     orderApi: orderApi,
   );
 
+  final orderRatingApi = OrderRatingApi(authedDio);
+  Di.orderRatingRepository = OrderRatingRepositoryImpl(
+    orderRatingApi: orderRatingApi,
+    orderRepository: Di.orderRepository,
+  );
+
   /// Payment
 
   final stripeClientFactory = StripeClientFactory();

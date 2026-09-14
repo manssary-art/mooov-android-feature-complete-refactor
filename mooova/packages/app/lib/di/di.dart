@@ -6,6 +6,7 @@ import '../repositories/order/order_activities_repository.dart';
 import '../repositories/order/order_candidate_repository.dart';
 import '../repositories/order/order_discovery_repository.dart';
 import '../repositories/order/order_placement_repository.dart';
+import '../repositories/order/order_rating_repository.dart';
 import '../repositories/order/order_repository.dart';
 import '../repositories/payment/place_payment_repository.dart';
 import '../repositories/payment/saved_payment_method_repository.dart';
@@ -33,6 +34,7 @@ final class Di {
   static late OrderActivitiesRepository orderActivitiesRepository;
   static late OrderCandidateRepository orderCandidateRepository;
   static late OrderPlacementRepository orderPlacementRepository;
+  static late OrderRatingRepository orderRatingRepository;
 
   /// Payment
   static late PlacePaymentRepository placePaymentRepository;
