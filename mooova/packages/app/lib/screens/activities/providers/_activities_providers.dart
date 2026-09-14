@@ -100,4 +100,10 @@ class ActivitiesNotifier extends StreamNotifier<List<ActivitiesOrderItem>> {
     if (phone == null) return;
     _sideEffects().add(ActivitiesSideEffect$OpenUrl(url: 'sms:$phone'));
   }
+
+  Future<void> onOwnerDeliveryDoneClicked(String orderId) async {
+    final orderActivitiesRepository = ref.read(orderActivitiesRepositoryProvider);
+    await orderActivitiesRepository.confirmDelivery(orderId: orderId);
+    ref.invalidateSelf();
+  }
 }

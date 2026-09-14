@@ -76,7 +76,7 @@ class ActivitiesScreen extends HookConsumerWidget {
           onOwnerSelectCandidateClicked: onNavToWorkerSelection,
           onOwnerPhoneCallWorkerClicked: initialNotifier.onOwnerPhoneCallWorkerClicked,
           onOwnerPhoneSmsWorkerClicked: initialNotifier.onOwnerPhoneSmsWorkerClicked,
-          onOwnerDeliveryDoneClicked: (_) {},
+          onOwnerDeliveryDoneClicked: initialNotifier.onOwnerDeliveryDoneClicked,
           onOwnerRateOrderClicked: (_) {},
           onOwnerRenewOrderClicked: (_) {},
           onWorkerPhoneCallOwnerClicked: initialNotifier.onWorkerPhoneCallOwnerClicked,
