@@ -19,6 +19,7 @@ import '../../../../core/ext/riverpod_ext.dart';
 import '../models/order_placement_address.dart';
 import '../models/order_placement_mode.dart';
 import '../models/order_placement_steps.dart';
+import '../widgets/order_placement_content_address_form.dart' show floorPrice, assemblyPrice;
 
 part 'order_placement_addresses_providers.dart';
 
