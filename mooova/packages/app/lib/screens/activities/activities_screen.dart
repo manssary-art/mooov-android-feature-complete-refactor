@@ -7,6 +7,7 @@ import '../../../core/ext/riverpod_ext.dart';
 import '../../core/hooks/flutter_hooks.dart';
 import '../../main/router/routes/utilities/image_picker_route.dart';
 import 'providers/_activities_providers.dart';
+import 'widgets/activities_dialog_worker_refund.dart';
 import 'widgets/content/activities_screen_content.dart';
 
 class ActivitiesScreen extends HookConsumerWidget {
@@ -94,7 +95,12 @@ class ActivitiesScreen extends HookConsumerWidget {
           onWorkerPhoneSmsOwnerClicked: initialNotifier.onWorkerPhoneSmsOwnerClicked,
           onWorkerUploadPickedUpImageClicked: initialNotifier.onWorkerUploadPickedUpImageClicked,
           onWorkerUploadDeliveredImageClicked: initialNotifier.onWorkerUploadDeliveredImageClicked,
-          onWorkerCancelAndRefundClicked: (_) {},
+          onWorkerCancelAndRefundClicked: (orderId) => showDialog(
+            context: context,
+            builder: (context) => ActivitiesDialogWorkerRefund(
+              onConfirm: () => initialNotifier.onWorkerCancelAndRefundClicked(orderId),
+            ),
+          ),
           onWorkerDeliveryDoneClicked: (_) {},
           onWorkerEmailSupportClicked: (_) {},
         );
