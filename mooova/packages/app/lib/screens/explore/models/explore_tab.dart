@@ -1,0 +1,4 @@
+enum ExploreTab {
+  all,
+  available,
+}

@@ -1,0 +1,146 @@
+name: app
+description: A new Flutter project.
+
+publish_to: none
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  core:
+    path: ../../../shared/core
+
+  preview:
+    path: ../../../shared/preview
+
+  design_system:
+    path: ../design_system
+
+  generated_assets:
+    path: ../generated_assets
+
+  platform_timezone:
+    path: ../../platform_timezone
+
+  network_api:
+    path: ../network_api
+
+  analytics:
+    path: ../analytics
+
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+  firebase_messaging: ^14.4.1
+  firebase_database: ^10.1.1
+  firebase_dynamic_links: ^5.1.1
+  firebase_storage: ^11.1.1
+  firebase_remote_config: ^4.0.1
+  firebase_analytics: ^10.2.1
+  firebase_crashlytics: ^3.1.1
+  firebase_app_check: ^0.1.2+2
+
+  permission_handler: ^10.2.0
+  easy_localization: ^3.0.1
+  flutter_native_splash: ^2.2.19
+  go_router: ^6.5.6
+  flutter_hooks: ^0.18.6
+  flutter_mobx: ^2.0.6+5
+  mobx: ^2.1.4
+  responsive_framework: ^1.0.0
+  flutter_dotenv: ^5.0.2
+  equatable: ^2.0.5
+  flutter_form_builder: ^9.0.0
+  geolocator: ^9.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  cached_network_image: ^3.2.3
+  rxdart: ^0.27.6
+  url_launcher: ^6.1.10
+  url_strategy: ^0.2.0
+  smooth_page_indicator: ^1.1.0
+  photo_view: ^0.14.0
+  linkable: ^3.0.1
+  map_launcher: ^2.5.0+1
+  share_plus: ^7.0.2
+  device_preview: ^1.1.0
+  scrollable_positioned_list: ^0.3.7
+  cross_file: ^0.3.3+4
+  image_picker: ^0.8.7+5
+  async: ^2.9.0
+  flutter_riverpod: ^2.3.6
+  hooks_riverpod: ^2.3.6
+  riverpod_annotation: ^2.1.1
+  cupertino_icons: ^1.0.5
+  qr_flutter: ^4.1.0
+  path_provider: ^2.0.15
+  package_info_plus: ^4.0.2
+  flutter_stripe: ^9.2.1
+  visibility_detector: ^0.4.0+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
+  dependency_validator: ^3.2.2
+  riverpod_generator: ^2.2.3
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+    - assets/intl/
+    - assets/images/
+    - assets/flags/
+    - assets/env/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins_ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins_Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins_Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins_Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins_SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins_Bold.ttf
+          weight: 700
+
+flutter_gen:
+  output: ../../packages/generated_assets/lib
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
+    flare_flutter: true
+    rive: true
+    lottie: true
+
+  assets:
+    enabled: true
+    exclude:
+      - assets/intl/*.json
+      - assets/fonts/*.ttf
+      - assets/flags/*.png
+      - assets/env/*.env
+
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs:
+      - assets/colors/colors.xml

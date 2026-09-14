@@ -1,0 +1,26 @@
+workflows:
+  android-workflow-dev:
+    name: Android Workflow Dev
+    environment: 
+      android_signing:
+        - keystore_reference
+    scripts:
+      - name: Activate FVM 
+        script: dart pub global activate fvm
+      - name: Install current FVM version
+        script: fvm install
+      - name: Activate Melos CLI 
+        script: |
+          flutter pub global activate melos
+      - name: Melos bootstrap all packages 
+        script: |
+          flutter pub global run melos bs
+      - name: Apply ENV
+        script: |
+         flutter pub global run melos run pre:env dev
+      - name: Run build 
+        script: |
+          flutter pub global run melos run app:android:release
+    artifacts:
+      - app/build/**/outputs/**/*.apk
+

@@ -1,0 +1,1 @@
+fvm flutter pub run dependency_validator

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "mooov-testing"
+  },
+  "targets": {
+    "mooov-testing": {
+      "hosting": {
+        "mooov-dev-preview-app": [
+          "mooov-dev-preview-app"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

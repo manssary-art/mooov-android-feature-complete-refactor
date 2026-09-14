@@ -1,0 +1,28 @@
+name: core
+description: A core package.
+version: 0.0.1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  equatable: ^2.0.5
+  logger: ^1.1.0
+  mobx: ^2.1.4
+  flutter_mobx: ^2.0.6+5
+  async: ^2.9.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
+  dependency_validator: ^3.2.2
+
+flutter:

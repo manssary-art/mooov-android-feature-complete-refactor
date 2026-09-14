@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- primary400 -->
+    <color name="primary">#FFFCC718</color>
+
+    <!-- neutral0 -->
+    <color name="background">#FFFFFFFF</color>
+
+    <color name="success">#FF5FA55A</color>
+    <color name="info">#FF07A5F6</color>
+    <color name="warning">#FFFFD166</color>
+    <color name="error">#FFFA5457</color>
+
+    <color name="primary50">#FFFFF8E0</color>
+    <color name="primary100">#FFFEEBB0</color>
+    <color name="primary200">#FFFDDE7E</color>
+    <color name="primary300">#FFFCD247</color>
+    <color name="primary400">#FFFCC718</color>
+    <color name="primary500">#FFFCBD00</color>
+    <color name="primary600">#FFFCAF00</color>
+    <color name="primary700">#FFFD8B00</color>
+    <color name="primary800">#FFFD8B00</color>
+    <color name="primary900">#FFFD6A00</color>
+
+    <color name="neutral100">#FF22313F</color>
+    <color name="neutral80">#FF4E5A65</color>
+    <color name="neutral60">#FF7A838C</color>
+    <color name="neutral40">#FFA7ADB2</color>
+    <color name="neutral20">#FFD3D6D9</color>
+    <color name="neutral10">#FFE9EAEC</color>
+    <color name="neutral5">#FFF4F5F5</color>
+    <color name="neutral0">#FFFFFFFF</color>
+
+    <!-- Specifics -->
+    <color name="order_give_await">#FFF08250</color>
+    <color name="order_recycle">#FF17B1BB</color>
+</resources>

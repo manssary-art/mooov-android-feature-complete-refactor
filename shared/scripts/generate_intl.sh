@@ -1,0 +1,1 @@
+(cd packages/app || exit; fvm flutter pub run easy_localization:generate -f keys -S assets/intl -O ../generated_assets/lib -o locale_keys.gen.dart)

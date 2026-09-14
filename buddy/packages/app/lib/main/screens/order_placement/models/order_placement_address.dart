@@ -1,0 +1,1 @@
+const pickUpAddressKey = 0;

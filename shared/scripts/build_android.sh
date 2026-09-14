@@ -1,0 +1,1 @@
+(cd packages/app || exit 1; fvm flutter build apk --release)

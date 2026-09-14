@@ -1,0 +1,4 @@
+enum OrderPaymentStep {
+  selectMethod,
+  cardInfo,
+}

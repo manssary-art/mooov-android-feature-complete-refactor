@@ -1,0 +1,65 @@
+{
+  "project_info": {
+    "project_number": "1090098370645",
+    "firebase_url": "https://mooov-testing.firebaseio.com",
+    "project_id": "mooov-testing",
+    "storage_bucket": "mooov-testing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "fake",
+        "android_client_info": {
+          "package_name": "com.mooov.mooov.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov.dev",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov.dev",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "fake"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "fake",
+              "client_type": 3
+            },
+            {
+              "client_id": "fake",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ai.mooov.mooov",
+                "app_store_id": "1531574702"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+

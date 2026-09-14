@@ -1,0 +1,4 @@
+enum ActivitiesTab {
+  active,
+  completed,
+}

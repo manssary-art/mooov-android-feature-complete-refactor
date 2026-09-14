@@ -1,0 +1,87 @@
+name: project
+
+packages:
+  - ./packages/**
+  - ../shared/**
+
+scripts:
+  analyze:
+    exec: dart analyze .
+
+  cors:
+    run: bash $PWD/../shared/scripts/cors.sh
+
+  build:
+    name: build_runner
+    description: 'build runner'
+    packageFilters:
+      dependsOn:
+        - build_runner
+    exec: bash $PWD/../shared/scripts/build_runner.sh
+
+  sync_pubspec:
+    description: 'Sync pubspec with root melos file'
+    run: bash $PWD/../shared/scripts/sync_pubspec.sh
+
+  dependency_validator:
+    description: 'Sync pubspec with root melos file'
+    exec:
+      concurrency: 1
+    run: bash $PWD/../shared/scripts/dependency_validator.sh
+
+  ##### Generate
+
+  prepare_env:
+    name: prepare_env
+    description: 'prepare env'
+    run: bash $PWD/../shared/scripts/prepare_env.sh
+
+  save_env:
+    name: save_env
+    description: 'save env'
+    run: bash $PWD/../shared/scripts/save_env.sh
+
+  generate_splash:
+    name: generate_splash
+    description: 'generate intl utils for mobile packages'
+    packageFilters:
+      dependsOn:
+        - flutter_native_splash
+    exec: bash $PWD/../shared/scripts/generate_splash.sh
+
+  generate_intl:
+    name: generate_intl
+    description: 'generate intl utils for mobile packages'
+    run: bash $PWD/../shared/scripts/generate_intl.sh
+
+  generate_assets:
+    name: generate_assets
+    description: 'generate intl utils for mobile packages'
+    run: bash $PWD/../shared/scripts/generate_assets.sh
+
+  #### Web
+
+  build_web_preview:
+    name: build_web_preview
+    description: 'deploy_web_preview_app'
+    run: bash $PWD/../shared/scripts/build_web_preview.sh
+
+  ##### Android
+
+  build_android:
+    name: build_android
+    description: 'build android'
+    run: bash $PWD/../shared/scripts/build_android.sh
+
+  ##### iOS
+
+  build_ios:
+    name: build_ios
+    description: 'build ios'
+    run: bash $PWD/../shared/scripts/build_ios.sh
+
+ide:
+  intellij:
+    enabled: true
+
+sdkPath: ../.fvm/flutter_sdk

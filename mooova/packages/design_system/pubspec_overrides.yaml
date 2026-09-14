@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: core,generated_assets
+dependency_overrides:
+  core:
+    path: ../../../shared/core
+  generated_assets:
+    path: ../generated_assets

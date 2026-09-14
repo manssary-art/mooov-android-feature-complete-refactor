@@ -1,0 +1,81 @@
+{
+  "project_info": {
+    "project_number": "202400412804",
+    "firebase_url": "https://quantum-hash-272221.firebaseio.com",
+    "project_id": "quantum-hash-272221",
+    "storage_bucket": "quantum-hash-272221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "fake",
+        "android_client_info": {
+          "package_name": "com.mooov.mooov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooov.mooov",
+            "certificate_hash": "fake"
+          }
+        },
+        {
+          "client_id": "fake",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "fake"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "fake",
+              "client_type": 3
+            },
+            {
+              "client_id": "fake",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ai.mooov.mooov",
+                "app_store_id": "1512132548"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+

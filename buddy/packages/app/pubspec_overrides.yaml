@@ -1,0 +1,16 @@
+# melos_managed_dependency_overrides: core,platform_timezone,preview,design_system,generated_assets,network_api,analytics
+dependency_overrides:
+  analytics:
+    path: ../analytics
+  core:
+    path: ../../../shared/core
+  design_system:
+    path: ../design_system
+  generated_assets:
+    path: ../generated_assets
+  network_api:
+    path: ../network_api
+  platform_timezone:
+    path: ../../../shared/platform_timezone
+  preview:
+    path: ../../../shared/preview
