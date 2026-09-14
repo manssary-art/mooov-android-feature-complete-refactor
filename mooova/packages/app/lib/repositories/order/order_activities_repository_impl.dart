@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:network_api/apis/order_activities_api.dart';
 import 'package:network_api/apis/order_api.dart';
+import 'package:network_api/apis/order_management_api.dart';
 import 'package:network_api/dtos/order_update_dto.dart';
 import 'package:network_api/ext/http_response_ext.dart';
 
@@ -20,12 +21,14 @@ class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
   final UserRepository userRepository;
   final OrderApi orderApi;
   final OrderRepository orderRepository;
+  final OrderManagementApi orderManagementApi;
 
   OrderActivitiesRepositoryImpl({
     required this.orderActivitiesApi,
     required this.userRepository,
     required this.orderApi,
     required this.orderRepository,
+    required this.orderManagementApi,
     required StreamController<OrderModel> onOrderChanged,
   }) {
     _onStart(onOrderChanged);
@@ -87,5 +90,13 @@ class OrderActivitiesRepositoryImpl implements OrderActivitiesRepository {
               .asHttpResponseResult()
               .onValue((e) => orderRepository.getOrderById(orderId: orderId));
         });
+      });
+
+  @override
+  Future<Result<void>> confirmDelivery({required String orderId}) => resultOf(() async {
+        return orderManagementApi
+            .setOrderCompleted(orderId: orderId)
+            .asHttpResponseResult()
+            .onValue((e) => orderRepository.getOrderById(orderId: orderId));
       });
 }

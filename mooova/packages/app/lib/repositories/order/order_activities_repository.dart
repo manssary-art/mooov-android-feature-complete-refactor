@@ -8,4 +8,6 @@ abstract interface class OrderActivitiesRepository {
   Future<Result<List<OrderModel>>> getRelatedOrders();
 
   Future<Result<void>> increaseOrderPrice({required String orderId, required double newPrice});
+
+  Future<Result<void>> confirmDelivery({required String orderId});
 }
